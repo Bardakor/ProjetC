@@ -107,6 +107,81 @@ char *getLine(char *filename, int line_number)
     return NULL;
 }
 
+//function to pick a line that type is Nom, if it's not Nom it will pick another line until it finds a line that type is Nom
+
+char *getNom(char *filename)
+{
+    char *line = malloc(sizeof(char) * MAX);
+    int line_number = rand() % 1000;
+    line = getLine(filename, line_number);
+    int size = 0;
+    char **array = split(line, &size);
+    while (!isNom(array[2]))
+    {
+        line_number = rand() % 1000;
+        line = getLine(filename, line_number);
+        array = split(line, &size);
+    }
+    return line;
+}
+
+//function to pick a line that type is Ver, if it's not Ver it will pick another line until it finds a line that type is Ver
+
+char *getVer(char *filename)
+{
+    char *line = malloc(sizeof(char) * MAX);
+    int line_number = rand() % 1000;
+    line = getLine(filename, line_number);
+    int size = 0;
+    char **array = split(line, &size);
+    while (!isVer(array[2]))
+    {
+        line_number = rand() % 1000;
+        line = getLine(filename, line_number);
+        array = split(line, &size);
+    }
+    return line;
+}
+
+
+//function to pick a line that type is Adj, if it's not Adj it will pick another line until it finds a line that type is Adj
+
+char *getAdj(char *filename)
+{
+    char *line = malloc(sizeof(char) * MAX);
+    int line_number = rand() % 1000;
+    line = getLine(filename, line_number);
+    int size = 0;
+    char **array = split(line, &size);
+    while (!isAdj(array[2]))
+    {
+        line_number = rand() % 1000;
+        line = getLine(filename, line_number);
+        array = split(line, &size);
+    }
+    return line;
+}
+
+//function to pick a line that type is Adv, if it's not Adv it will pick another line until it finds a line that type is Adv
+
+char *getAdv(char *filename)
+{
+    char *line = malloc(sizeof(char) * MAX);
+    int line_number = rand() % 1000;
+    line = getLine(filename, line_number);
+    int size = 0;
+    char **array = split(line, &size);
+    while (!isAdv(array[2]))
+    {
+        line_number = rand() % 1000;
+        line = getLine(filename, line_number);
+        array = split(line, &size);
+    }
+    return line;
+}
+
+
+
 int main()
 {
 
