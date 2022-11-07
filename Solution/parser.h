@@ -28,4 +28,13 @@ char *getAdv(char *);
 
 int display();
 
+int displayNom();
+
+int displayVer();
+
+int displayAdj();
+
+int displayAdv();
+
+
 #endif /* PRIMARY_HEADER_H */

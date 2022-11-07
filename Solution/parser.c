@@ -106,37 +106,40 @@ char *getLine(char *filename, int line_number)
 
 //function to pick a line that type is Nom, if it's not Nom it will pick another line until it finds a line that type is Nom
 
+//function getline to be repeated until it finds a line that type is Nom
+
 char *getNom(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
     int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isNom(array[2]))
     {
         line_number = rand() % 1000;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
-    //arthur est pd
 }
 
 //function to pick a line that type is Ver, if it's not Ver it will pick another line until it finds a line that type is Ver
 
 char *getVer(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
     int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isVer(array[2]))
     {
         line_number = rand() % 1000;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
 }
@@ -146,16 +149,17 @@ char *getVer(char *filename)
 
 char *getAdj(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
     int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isAdj(array[2]))
     {
         line_number = rand() % 1000;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
 }
@@ -164,16 +168,17 @@ char *getAdj(char *filename)
 
 char *getAdv(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
     int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isAdv(array[2]))
     {
         line_number = rand() % 1000;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
 }
@@ -184,6 +189,62 @@ int display()
     srand(time(NULL));
     int line_number = rand() % 300000;
     char *line = getLine("dictionnaire.txt", line_number);
+    int size;
+    char **words = split(line, &size);
+    char *word = words[0];
+    char *base = words[1];
+    char *type = getType(words[2]);
+    printf("word: %s\nbase: %s\ntype: %s\n", word, base, type);
+    return 0;
+}
+
+//display Nom
+
+int displayNom()
+{
+    char *line = getNom("dictionnaire.txt");
+    int size;
+    char **words = split(line, &size);
+    char *word = words[0];
+    char *base = words[1];
+    char *type = getType(words[2]);
+    printf("word: %s\nbase: %s\ntype: %s\n", word, base, type);
+    return 0;
+}
+
+//display Ver
+
+int displayVer()
+{
+    char *line = getVer("dictionnaire.txt");
+    int size;
+    char **words = split(line, &size);
+    char *word = words[0];
+    char *base = words[1];
+    char *type = getType(words[2]);
+    printf("word: %s\nbase: %s\ntype: %s\n", word, base, type);
+    return 0;
+}
+
+//display Adj
+
+int displayAdj()
+{
+    char *line = getAdj("dictionnaire.txt");
+    int size;
+    char **words = split(line, &size);
+    char *word = words[0];
+    char *base = words[1];
+    char *type = getType(words[2]);
+    printf("word: %s\nbase: %s\ntype: %s\n", word, base, type);
+    return 0;
+}
+
+//display Adv
+
+int displayAdv()
+{
+    char *line = getAdv("dictionnaire.txt");
     int size;
     char **words = split(line, &size);
     char *word = words[0];

@@ -12,4 +12,9 @@
 int main()
 {
     display();
+    displayNom();
+    displayVer();
+    displayAdj();
+    displayAdv();
+    return 0;
 }
