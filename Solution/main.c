@@ -123,6 +123,7 @@ char *getNom(char *filename)
         array = split(line, &size);
     }
     return line;
+    //arthur est pd
 }
 
 //function to pick a line that type is Ver, if it's not Ver it will pick another line until it finds a line that type is Ver
