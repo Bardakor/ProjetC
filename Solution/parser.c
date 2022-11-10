@@ -197,7 +197,50 @@ char *getAdv(char *filename)
     return line;
 }
 
+//function to create a new empty file and store in it all the lines that type is Nom, unlimited memory
 
+void createNom(char *filename)
+{
+    FILE *fp = fopen(filename, "r");
+    FILE *fp2 = fopen("Nom.txt", "w");
+    char *line = malloc(sizeof(char) * Max);
+    int i = 0;
+    while (fgets(line, Max, fp) != NULL)
+    {
+        char *line2 = getLine(filename, i);
+        int size;
+        char **array = split(line2, &size);
+        if (isNom(array[2]))
+        {
+            fprintf(fp2, "%s", line);
+        }
+        i++;
+    }
+    fclose(fp);
+    fclose(fp2);
+}
+
+
+
+//function to store in file all the different bases of the word in a file 
+
+void createBase(char *filename)
+{
+    FILE *fp = fopen(filename, "r");
+    FILE *fp2 = fopen("Base.txt", "w");
+    char *line = malloc(sizeof(char) * Max);
+    int i = 0;
+    while (fgets(line, Max, fp) != NULL)
+    {
+        char *line2 = getLine(filename, i);
+        int size;
+        char **array = split(line2, &size);
+        fprintf(fp2, "%s ", array[0]); 
+        i++;
+    }
+    fclose(fp);
+    fclose(fp2);
+}
 
 
 
