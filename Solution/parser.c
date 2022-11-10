@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include "parser.h"
 
 int Max = 0;
 
@@ -120,8 +119,6 @@ char *getLine(char *filename, int line_number)
 
 //function to pick a line that type is Nom, if it's not Nom it will pick another line until it finds a line that type is Nom
 
-//function getline to be repeated until it finds a line that type is Nom
-
 char *getNom(char *filename)
 {
     int line_number = rand() % Max;
@@ -220,22 +217,40 @@ void createNom(char *filename)
     fclose(fp2);
 }
 
+//function to fetch only the base of the word afrer the split
 
+char *getBase(char *filename, int line_number)
+{
+    char *line = getLine(filename, line_number);
+    int size;
+    char **array = split(line, &size);
+    return array[1];
+}
 
-//function to store in file all the different bases of the word in a file 
+//function to go trough whole file, split the line and get the base of the word, check if it's not the same base as the previous one, and if it's not the same base as the previous one, store it in a new file
 
 void createBase(char *filename)
 {
+    //go trogh the file line by line, add the word to the file if does not have the same basis as it's previous word in the file, only for word that have type nom
+
     FILE *fp = fopen(filename, "r");
     FILE *fp2 = fopen("Base.txt", "w");
     char *line = malloc(sizeof(char) * Max);
     int i = 0;
+    char *previous = malloc(sizeof(char) * Max);
     while (fgets(line, Max, fp) != NULL)
     {
         char *line2 = getLine(filename, i);
         int size;
         char **array = split(line2, &size);
-        fprintf(fp2, "%s ", array[0]); 
+        if (isNom(array[2]))
+        {
+            if (strcmp(previous, array[1]) != 0)
+            {
+                fprintf(fp2, "%s \n", array[1]);
+                strcpy(previous, array[1]);
+            }
+        }
         i++;
     }
     fclose(fp);
@@ -243,4 +258,37 @@ void createBase(char *filename)
 }
 
 
+char *getPhrasever1()
+{
+    char *phrase = malloc(100 * sizeof(char));
+    char *nom = getNom("dictionnaire.txt");
+    char *adj = getAdj("dictionnaire.txt");
+    char *ver = getVer("dictionnaire.txt");
+    char *nom2 = getNom("dictionnaire.txt");
+    
+    // split the line to get the base of the word
+    
+    int size;
+    char **words = split(nom, &size);
+    char *word = words[1];
+    char **words2 = split(adj, &size);
+    char *word2 = words2[1];
+    char **words3 = split(ver, &size);
+    char *word3 = words3[1];
+    char **words4 = split(nom2, &size);
+    char *word4 = words4[1];
+    
+    // concatenate the base of the word to the phrase
+    
+    strcat(phrase, word);
+    strcat(phrase, " ");
+    strcat(phrase, word2);
+    strcat(phrase, " ");
+    strcat(phrase, word3);
+    strcat(phrase, " ");
+    strcat(phrase, word4);
+    return phrase;
+}
+
+//now we need to generate a phrase that has this order : Nom + "qui" + ver + ver + nom + adj
 

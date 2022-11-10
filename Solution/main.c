@@ -5,9 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "parser.h"
 #include "parser.c"
-
 
 
 int display()
@@ -25,7 +23,7 @@ int display()
     return 0;
 }
 
-//display Nom
+// display Nom
 
 int displayNom()
 {
@@ -39,7 +37,7 @@ int displayNom()
     return 0;
 }
 
-//display Ver
+// display Ver
 
 int displayVer()
 {
@@ -53,7 +51,7 @@ int displayVer()
     return 0;
 }
 
-//display Adj
+// display Adj
 
 int displayAdj()
 {
@@ -67,7 +65,7 @@ int displayAdj()
     return 0;
 }
 
-//display Adv
+// display Adv
 
 int displayAdv()
 {
@@ -81,10 +79,9 @@ int displayAdv()
     return 0;
 }
 
-
 int main()
 {
-    //print number of lines in file
+    // print number of lines in file
     printf("Number of lines in file: %d\n", countLines("dictionnaire.txt"));
     Max = countLines("dictionnaire.txt");
     display();
@@ -92,5 +89,6 @@ int main()
     displayVer();
     displayAdj();
     displayAdv();
+    //print the phrase using getPhrasever1
+    printf("Phrase: %s \n", getPhrasever1());
 }
-
