@@ -8,6 +8,8 @@
 #include "parser.h"
 #include "parser.c"
 
+
+
 int display()
 {
     // choose a random line from the file dictionnaire.txt
@@ -90,5 +92,4 @@ int main()
     displayVer();
     displayAdj();
     displayAdv();
-    return 0;
 }
