@@ -4,28 +4,7 @@
 
 #include <stdio.h>
 
-char **split(char *, int *);
+char **cat_nom(char *);
 
-int isNom(char *);
-
-int isVer(char *);
-
-int isAdj(char *);
-
-int isAdv(char *);
-
-char *getType(char *);
-
-char *getLine(char *, int );
-
-char *getNom(char *);
-
-char *getVer(char *);
-
-char *getAdj(char *);
-
-char *getAdv(char *);
-
-int display();
 
 #endif /* PRIMARY_HEADER_H */

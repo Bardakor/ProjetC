@@ -4,13 +4,27 @@
 #include <time.h>
 #include "parser.h"
 
-#define MAX 500
+int Max = 0;
+
+//function to calculate the number of lines in the file
+
+int countLines(char *filename)
+{
+    FILE *fp = fopen(filename, "r");
+    int count = 0;
+    char c;
+    for (c = getc(fp); c != EOF; c = getc(fp))
+        if (c == '\n')
+            count = count + 1;
+    fclose(fp);
+    return count;
+}
 
 // function to return an array of strings from a string, it splits the string at each space or tabulation or newline or carriage return and returns an array of strings
 
 char **split(char *str, int *size)
 {
-    char **array = malloc(sizeof(char *) * MAX);
+    char **array = malloc(sizeof(char *) * Max);
     char *token = strtok(str, " \t \r \n");
     int i = 0;
     while (token != NULL)
@@ -91,9 +105,9 @@ char *getType(char *word)
 char *getLine(char *filename, int line_number)
 {
     FILE *fp = fopen(filename, "r");
-    char *line = malloc(sizeof(char) * MAX);
+    char *line = malloc(sizeof(char) * Max);
     int i = 0;
-    while (fgets(line, MAX, fp) != NULL)
+    while (fgets(line, Max, fp) != NULL)
     {
         if (i == line_number)
         {
@@ -106,37 +120,40 @@ char *getLine(char *filename, int line_number)
 
 //function to pick a line that type is Nom, if it's not Nom it will pick another line until it finds a line that type is Nom
 
+//function getline to be repeated until it finds a line that type is Nom
+
 char *getNom(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
-    int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    int line_number = rand() % Max;
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isNom(array[2]))
     {
-        line_number = rand() % 1000;
+        line_number = rand() % Max;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
-    //arthur est pd
 }
 
 //function to pick a line that type is Ver, if it's not Ver it will pick another line until it finds a line that type is Ver
 
 char *getVer(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
-    int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    int line_number = rand() % Max;
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isVer(array[2]))
     {
-        line_number = rand() % 1000;
+        line_number = rand() % Max;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
 }
@@ -146,16 +163,17 @@ char *getVer(char *filename)
 
 char *getAdj(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
-    int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    int line_number = rand() % Max;
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isAdj(array[2]))
     {
-        line_number = rand() % 1000;
+        line_number = rand() % Max;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
 }
@@ -164,36 +182,65 @@ char *getAdj(char *filename)
 
 char *getAdv(char *filename)
 {
-    char *line = malloc(sizeof(char) * MAX);
-    int line_number = rand() % 1000;
-    line = getLine(filename, line_number);
-    int size = 0;
-    char **array = split(line, &size);
+    int line_number = rand() % Max;
+    char *line = getLine(filename, line_number);
+    char *line2 = getLine(filename, line_number);
+    int size;
+    char **array = split(line2, &size);
     while (!isAdv(array[2]))
     {
-        line_number = rand() % 1000;
+        line_number = rand() % Max;
         line = getLine(filename, line_number);
-        array = split(line, &size);
+        line2 = getLine(filename, line_number);
+        array = split(line2, &size);
     }
     return line;
 }
 
-int display()
+//function to create a new empty file and store in it all the lines that type is Nom, unlimited memory
+
+void createNom(char *filename)
 {
-    // choose a random line from the file dictionnaire.txt
-    srand(time(NULL));
-    int line_number = rand() % 300000;
-    char *line = getLine("dictionnaire.txt", line_number);
-    int size;
-    char **words = split(line, &size);
-    char *word = words[0];
-    char *base = words[1];
-    char *type = getType(words[2]);
-    printf("word: %s\nbase: %s\ntype: %s\n", word, base, type);
-    return 0;
+    FILE *fp = fopen(filename, "r");
+    FILE *fp2 = fopen("Nom.txt", "w");
+    char *line = malloc(sizeof(char) * Max);
+    int i = 0;
+    while (fgets(line, Max, fp) != NULL)
+    {
+        char *line2 = getLine(filename, i);
+        int size;
+        char **array = split(line2, &size);
+        if (isNom(array[2]))
+        {
+            fprintf(fp2, "%s", line);
+        }
+        i++;
+    }
+    fclose(fp);
+    fclose(fp2);
 }
 
 
+
+//function to store in file all the different bases of the word in a file 
+
+void createBase(char *filename)
+{
+    FILE *fp = fopen(filename, "r");
+    FILE *fp2 = fopen("Base.txt", "w");
+    char *line = malloc(sizeof(char) * Max);
+    int i = 0;
+    while (fgets(line, Max, fp) != NULL)
+    {
+        char *line2 = getLine(filename, i);
+        int size;
+        char **array = split(line2, &size);
+        fprintf(fp2, "%s ", array[0]); 
+        i++;
+    }
+    fclose(fp);
+    fclose(fp2);
+}
 
 
 
