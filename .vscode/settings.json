@@ -1,8 +1,5 @@
 {
     "files.associations": {
-        "stdlib.h": "c"
-    },
-    "editor.minimap.enabled": false,
-    "editor.minimap.autohide": true,
-    "editor.accessibilitySupport": "auto"
+        "stdio.h": "c"
+    }
 }
